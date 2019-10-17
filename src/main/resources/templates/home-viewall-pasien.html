@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container-fluid">
+    <h1 class="text-center mb-3">Sistem Informasi Pasien</h1>
+    <a>
+        <button type="button" class="btn btn-primary">Tambah Pasien Baru</button>
+    </a>
+
+    <div class="card mt-3">
+        <div class="card-header bg-dark text-white">Daftar Pasien</div>
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>NIK</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Kode Pasien</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Telepon Emergency Contact</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pasien, iterStat : ${listPasien}">
+                            <td th:text="${iterStat.count}"></td>
+                            <td th:text="${pasien.nama}"></td>
+                            <td th:text="${pasien.nik}"></td>
+                            <td th:text="${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>
+                            <td th:text="${pasien.kode}"></td>
+                            <td th:text="${pasien.tempatLahir}"></td>
+                            <td th:text="${pasien.tanggalLahir}"></td>
+                            <td th:text="${pasien.emergencyContact.noHp}"></td>
+                            <td>
+                                <button type="button" class="btn btn-dark">Tambah Diagnosis</button>
+                                <button type="button" class="btn btn-primary">Lihat</button>
+                                <button type="button" class="btn btn-dark">Ubah</button>
+                                <button type="button" class="btn btn-danger">Hapus</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
