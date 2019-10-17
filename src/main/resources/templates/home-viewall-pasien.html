@@ -47,7 +47,9 @@
                             <td th:text="${pasien.emergencyContact.noHp}"></td>
                             <td>
                                 <button type="button" class="btn btn-dark">Tambah Diagnosis</button>
-                                <button type="button" class="btn btn-primary">Lihat</button>
+                                <a th:href="@{/pasien(nikPasien = ${pasien.nik})}">
+                                    <button type="button" class="btn btn-primary">Lihat</button>
+                                </a>
                                 <button type="button" class="btn btn-dark">Ubah</button>
                                 <button type="button" class="btn btn-danger">Hapus</button>
                             </td>

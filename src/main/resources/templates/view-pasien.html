@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Pasien</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header bg-dark text-white">Detail Data Pasien</div>
+        <div class="card-body">
+            <a th:href="@{/}">
+                <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+            </a>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Nama</td>
+                        <td th:text="${pasien.nama}"></td>
+                    </tr>
+                    <tr>
+                        <td>NIK</td>
+                        <td th:text="${pasien.nik}"></td>
+                    </tr>
+                    <tr>
+                        <td>Kode</td>
+                        <td th:text="${pasien.kode}"></td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Kelamin</td>
+                        <td th:text="${pasien.jenisKelamin}"></td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Lahir</td>
+                        <td th:text="${pasien.tanggalLahir}"></td>
+                    </tr>
+                    <tr>
+                        <td>Tempat Lahir</td>
+                        <td th:text="${pasien.tempatLahir}"></td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Contact</td>
+                        <td th:text="${pasien.emergencyContact.nama} + ' - ' + ${pasien.emergencyContact.noHp}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3 mb-3">
+        <div class="card-header bg-dark text-white">Asuransi milik Pasien</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr th:each="asuransi, iterStat : ${listAsuransi}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${asuransi.asuransi.nama}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
