@@ -15,10 +15,12 @@
         <h2>Gagal</h2>
         <h3 th:text="'Diagnosis penyakit ' + ${targetDiagnosisPenyakit.nama} + ' sudah pernah ditambahkan ke pasien '+ ${pasien.nama}"></h3>
     </div>
-
     <h2 th:unless="${sudahAda}" th:text="'Diagnosis penyakit ' + ${targetDiagnosisPenyakit.nama} + ' berhasil ditambahkan ke pasien '
         + ${pasien.nama} + ' pada tanggal ' + ${pasienDiagnosisPenyakit.tanggalDiagnosis}">
     </h2>
+    <a th:href="@{/}">
+        <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+    </a>
 </div>
 
 </body>
