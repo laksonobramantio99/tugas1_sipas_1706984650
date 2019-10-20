@@ -13,11 +13,18 @@ public class DiagnosisPenyakitServiceImpl implements DiagnosisPenyakitService {
     @Autowired
     private DiagnosisPenyakitDb diagnosisPenyakitDb;
 
+    @Override
     public List<DiagnosisPenyakitModel> getAllDiagnosisPenyakit() {
         return diagnosisPenyakitDb.findAll();
     }
 
+    @Override
     public Optional<DiagnosisPenyakitModel> getDiagnosisPenyakitById(Long id) {
         return diagnosisPenyakitDb.findById(id);
+    }
+
+    @Override
+    public void addDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit) {
+        diagnosisPenyakitDb.save(diagnosisPenyakit);
     }
 }
