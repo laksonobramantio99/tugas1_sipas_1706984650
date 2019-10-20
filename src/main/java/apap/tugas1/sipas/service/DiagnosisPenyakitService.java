@@ -9,4 +9,5 @@ public interface DiagnosisPenyakitService {
     List<DiagnosisPenyakitModel> getAllDiagnosisPenyakit();
     Optional<DiagnosisPenyakitModel> getDiagnosisPenyakitById(Long id);
     void addDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit);
+    void deleteDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit);
 }

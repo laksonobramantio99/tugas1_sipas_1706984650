@@ -7,10 +7,7 @@ import apap.tugas1.sipas.service.PasienDiagnosisPenyakitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,5 +52,21 @@ public class DiagnosisPenyakitController {
     public String addDiagnosisPenyakitSubmit(@ModelAttribute DiagnosisPenyakitModel diagnosisPenyakit, Model model) {
         diagnosisPenyakitService.addDiagnosisPenyakit(diagnosisPenyakit);
         return "add-diagnosis-penyakit";
+    }
+
+    @RequestMapping(value = "/diagnosis-penyakit/hapus/{id}", method = RequestMethod.POST)
+    public String deleteDiagnosisPenyakit(@PathVariable Long id, Model model) {
+        DiagnosisPenyakitModel diagnosisPenyakit = diagnosisPenyakitService.getDiagnosisPenyakitById(id).get();
+        model.addAttribute("namaPenyakit", diagnosisPenyakit.getNama());
+
+        if (diagnosisPenyakit.getListPasien().size() > 0) {
+            model.addAttribute("isDeleted", false);
+            return "delete-diagnosis-penyakit";
+        }
+
+        model.addAttribute("isDeleted", true);
+        diagnosisPenyakitService.deleteDiagnosisPenyakit(diagnosisPenyakit);
+
+        return "delete-diagnosis-penyakit";
     }
 }

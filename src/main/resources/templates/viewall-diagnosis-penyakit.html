@@ -38,11 +38,16 @@
                             <td th:text="${diagnosisPenyakit.kode}"></td>
                             <td th:text="${diagnosisPenyakit.getListPasien().size()}"></td>
                             <td>
-                                <a th:href="@{/diagnosis-penyakit(idDiagnosis = ${diagnosisPenyakit.id})}">
-                                    <button type="button" class="btn btn-primary">Lihat</button>
-                                </a>
-                                <button type="button" class="btn btn-dark">Ubah</button>
-                                <button type="button" class="btn btn-danger">Hapus</button>
+                                <div class="container-fluid row">
+                                    <a th:href="@{/diagnosis-penyakit(idDiagnosis = ${diagnosisPenyakit.id})}" class="mr-1">
+                                        <button type="button" class="btn btn-primary">Lihat</button>
+                                    </a>
+                                    <button type="button" class="btn btn-dark mr-1" >Ubah</button>
+                                    <form th:action="@{'/diagnosis-penyakit/hapus/' + ${diagnosisPenyakit.id}}" method="POST">
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                </div>
+
                             </td>
                         </tr>
                         </tbody>

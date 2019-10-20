@@ -27,4 +27,9 @@ public class DiagnosisPenyakitServiceImpl implements DiagnosisPenyakitService {
     public void addDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit) {
         diagnosisPenyakitDb.save(diagnosisPenyakit);
     }
+
+    @Override
+    public void deleteDiagnosisPenyakit(DiagnosisPenyakitModel diagnosisPenyakit) {
+        diagnosisPenyakitDb.delete(diagnosisPenyakit);
+    }
 }
