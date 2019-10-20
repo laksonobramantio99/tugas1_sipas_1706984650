@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Pasien</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header bg-dark text-white">Detail Data Pasien</div>
+        <div class="card-body">
+            <a th:href="@{/}">
+                <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+            </a>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Nama</td>
+                        <td th:text="${pasien.nama}"></td>
+                    </tr>
+                    <tr>
+                        <td>NIK</td>
+                        <td th:text="${pasien.nik}"></td>
+                    </tr>
+                    <tr>
+                        <td>Kode</td>
+                        <td th:text="${pasien.kode}"></td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Kelamin</td>
+                        <td th:text="${pasien.jenisKelamin}"></td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Lahir</td>
+                        <td th:text="${pasien.tanggalLahir}"></td>
+                    </tr>
+                    <tr>
+                        <td>Tempat Lahir</td>
+                        <td th:text="${pasien.tempatLahir}"></td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Contact</td>
+                        <td th:text="${pasien.emergencyContact.nama} + ' - ' + ${pasien.emergencyContact.noHp}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <form class="form-inline mt-3" th:action="@{'/pasien/'+ ${pasien.nik} +'/tambah-diagnosis'}" th:object="${diagnosisPenyakit}" method="POST">
+        <select class="form-control mr-2" th:field="*{id}">
+            <option value="">-- Pilih Diagnosis Penyakit --</option>
+            <option th:each="dp : ${listDiagnosisPenyakit}" th:value="${dp.id}" th:text="${dp.nama}"></option>
+        </select>
+        <button type="submit" class="btn btn-primary">Tambah Diagnosis Penyakit Pasien</button>
+    </form>
+
+    <div class="card mt-1 mb-3">
+        <div class="card-header bg-dark text-white">Diagnosis Penyakit milik Pasien</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Tanggal terdiagnosis</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="penyakit, iterStat : ${listPenyakitPasien}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${penyakit.diagnosisPenyakit.nama}"></td>
+                        <td th:text="${penyakit.tanggalDiagnosis}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

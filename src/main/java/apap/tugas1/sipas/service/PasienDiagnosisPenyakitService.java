@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PasienDiagnosisPenyakitService{
     List<PasienDiagnosisPenyakitModel> getPasienByDiagnosisPenyakit(Long id);
+    void addPasienDiagnosisPenyakit(PasienDiagnosisPenyakitModel pasienDiagnosisPenyakitModel);
 }

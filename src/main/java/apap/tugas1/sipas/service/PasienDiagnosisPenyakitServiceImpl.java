@@ -16,4 +16,9 @@ public class PasienDiagnosisPenyakitServiceImpl implements PasienDiagnosisPenyak
     public List<PasienDiagnosisPenyakitModel> getPasienByDiagnosisPenyakit(Long id) {
         return pasienDiagnosisPenyakitDb.findByDiagnosisPenyakitId(id);
     }
+
+    @Override
+    public void addPasienDiagnosisPenyakit(PasienDiagnosisPenyakitModel pasienDiagnosisPenyakitModel) {
+        pasienDiagnosisPenyakitDb.save(pasienDiagnosisPenyakitModel);
+    }
 }
