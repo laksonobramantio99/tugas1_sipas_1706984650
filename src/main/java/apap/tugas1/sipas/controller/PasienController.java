@@ -1,5 +1,17 @@
 package apap.tugas1.sipas.controller;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import apap.tugas1.sipas.model.DiagnosisPenyakitModel;
 import apap.tugas1.sipas.model.PasienAsuransiModel;
 import apap.tugas1.sipas.model.PasienDiagnosisPenyakitModel;
@@ -8,13 +20,6 @@ import apap.tugas1.sipas.service.DiagnosisPenyakitService;
 import apap.tugas1.sipas.service.PasienAsuransiService;
 import apap.tugas1.sipas.service.PasienDiagnosisPenyakitService;
 import apap.tugas1.sipas.service.PasienService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class PasienController {
@@ -107,5 +112,40 @@ public class PasienController {
         model.addAttribute("pasienDiagnosisPenyakit", pasienDiagnosisPenyakit);
 
         return "add-diagnosis-penyakit-pasien";
+    }
+
+    @RequestMapping(value = "/pasien/cari", method = RequestMethod.GET)
+    public String cariPasienLakiPerempuan(Model model) {
+        List<DiagnosisPenyakitModel> listDiagnosisPenyakit = diagnosisPenyakitService.getAllDiagnosisPenyakit();
+        model.addAttribute("listDiagnosisPenyakit", listDiagnosisPenyakit);
+
+        DiagnosisPenyakitModel diagnosisPenyakit = new DiagnosisPenyakitModel();
+        model.addAttribute("diagnosisPenyakit", diagnosisPenyakit);
+
+        return "cari-pasien-laki-perempuan";
+    }
+
+    @RequestMapping(value = "/pasien/cari/lakilaki-perempuan", method = RequestMethod.GET)
+    public String cariPasienLakiPerempuanResult(Model model,
+                                                @ModelAttribute DiagnosisPenyakitModel diagnosisPenyakit,
+                                                @RequestParam(value = "id") Long idDiagnosisPenyakit
+        ) {
+        List<PasienDiagnosisPenyakitModel> pasienDiagnosisPenyakitList = pasienDiagnosisPenyakitService.getPasienByDiagnosisPenyakit(idDiagnosisPenyakit);
+        DiagnosisPenyakitModel newDiagnosisPenyakit = diagnosisPenyakitService.getDiagnosisPenyakitById(idDiagnosisPenyakit).get();
+
+        int lakilaki = 0;
+        int perempuan = 0;
+        for (PasienDiagnosisPenyakitModel x : pasienDiagnosisPenyakitList) {
+            if (x.getPasien().getJenisKelamin() == 1) {
+                lakilaki++;
+            } else {
+                perempuan++;
+            }
+        }
+        model.addAttribute("lakilaki", lakilaki);
+        model.addAttribute("perempuan", perempuan);
+        model.addAttribute("diagnosisPenyakit", newDiagnosisPenyakit);
+
+        return "cari-pasien-laki-perempuan-result";
     }
 }

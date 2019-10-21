@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Pasien</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-dark text-white">Jumlah Pasien pada Diagnosis</div>
+        <div class="card-body">
+            <h2>Masukkan Diagnosis</h2>
+            <form class="form-inline mt-3" th:action="@{/pasien/cari/lakilaki-perempuan}" th:object="${diagnosisPenyakit}" method="GET">
+                <select class="form-control mr-2" th:field="*{id}">
+                    <option value="0" disabled>-- Pilih Diagnosis Penyakit --</option>
+                    <option th:each="dp : ${listDiagnosisPenyakit}" th:value="${dp.id}" th:text="${dp.nama}"></option>
+                </select>
+                <button type="submit" class="btn btn-primary">Cari Pasien</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
