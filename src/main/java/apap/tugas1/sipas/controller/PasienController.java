@@ -1,8 +1,12 @@
 package apap.tugas1.sipas.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import apap.tugas1.sipas.model.*;
+import apap.tugas1.sipas.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import apap.tugas1.sipas.model.DiagnosisPenyakitModel;
-import apap.tugas1.sipas.model.PasienAsuransiModel;
-import apap.tugas1.sipas.model.PasienDiagnosisPenyakitModel;
-import apap.tugas1.sipas.model.PasienModel;
-import apap.tugas1.sipas.service.DiagnosisPenyakitService;
-import apap.tugas1.sipas.service.PasienAsuransiService;
-import apap.tugas1.sipas.service.PasienDiagnosisPenyakitService;
-import apap.tugas1.sipas.service.PasienService;
 
 @Controller
 public class PasienController {
@@ -35,6 +30,12 @@ public class PasienController {
 
     @Autowired
     private PasienDiagnosisPenyakitService pasienDiagnosisPenyakitService;
+
+    @Autowired
+    private AsuransiService asuransiService;
+
+    @Autowired
+    private EmergencyContactService emergencyContactService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(Model model) {
@@ -55,6 +56,82 @@ public class PasienController {
         model.addAttribute("listAsuransi", listAsuransi);
 
         return "view-pasien";
+    }
+
+    @RequestMapping(value = "/pasien/tambah", method = RequestMethod.GET)
+    public String formAddPasien(Model model) {
+        PasienModel pasien = new PasienModel();
+        java.util.Date utilDate = new Date();
+        java.sql.Date today = new java.sql.Date(utilDate.getTime());
+        pasien.setTanggalLahir(today);
+
+        AsuransiModel asuransiModel = new AsuransiModel();
+        asuransiModel.setId(1L);
+
+        PasienAsuransiModel pasienAsuransi = new PasienAsuransiModel();
+        List<PasienAsuransiModel> listAsuransiPasien = new ArrayList<>();
+        listAsuransiPasien.add(pasienAsuransi);
+        pasien.setListAsuransi(listAsuransiPasien);
+        pasienAsuransi.setPasien(pasien);
+        pasienAsuransi.setAsuransi(asuransiModel);
+
+        EmergencyContactModel emergencyContact = new EmergencyContactModel();
+        pasien.setEmergencyContact(emergencyContact);
+        emergencyContact.setPasien(pasien);
+
+        model.addAttribute("pasien", pasien);
+
+        List<AsuransiModel> listAllAsuransi = asuransiService.getAllAsuransi();
+        model.addAttribute("listAllAsuransi", listAllAsuransi);
+
+        return "form-add-pasien";
+    }
+
+    @RequestMapping(value = "/pasien/tambah", method = RequestMethod.POST, params = {"addAsuransi"})
+    public String addAsuransiRow(@ModelAttribute PasienModel pasien, Model model) {
+        pasien.getListAsuransi().add(new PasienAsuransiModel());
+        model.addAttribute("pasien", pasien);
+
+        List<AsuransiModel> listAllAsuransi = asuransiService.getAllAsuransi();
+        model.addAttribute("listAllAsuransi", listAllAsuransi);
+
+        return "form-add-pasien";
+    }
+
+    @RequestMapping(value = "/pasien/tambah", method = RequestMethod.POST)
+    public String formAddPasienSubmit(@ModelAttribute PasienModel pasienModel, Model model) {
+        EmergencyContactModel emergencyContact = new EmergencyContactModel();
+        emergencyContact.setNama(pasienModel.getEmergencyContact().getNama());
+        emergencyContact.setNik(pasienModel.getEmergencyContact().getNik());
+        emergencyContact.setNoHp(pasienModel.getEmergencyContact().getNoHp());
+        emergencyContactService.addEmergencyContact(emergencyContact);
+        pasienModel.setEmergencyContact(emergencyContact);
+
+        // Assign kode ke pasien model
+        while (true) {
+            String kode = pasienService.generateRandomKode(pasienModel.getTanggalLahir(), pasienModel.getJenisKelamin());
+            Optional<PasienModel> hasilCari = pasienService.getPasienByKode(kode);
+            if (hasilCari.isEmpty()) {
+                pasienModel.setKode(kode);
+                break;
+            }
+        }
+
+        // Save pasien model
+        pasienService.addPasien(pasienModel);
+
+        for (PasienAsuransiModel pasienAsuransi : pasienModel.getListAsuransi()) {
+            AsuransiModel asuransiModel = asuransiService.getAsuransiById(pasienAsuransi.getAsuransi().getId()).get();
+
+            PasienAsuransiModel pasienAsuransiModel = new PasienAsuransiModel();
+            pasienAsuransiModel.setPasien(pasienModel);
+            pasienAsuransiModel.setAsuransi(asuransiModel);
+            pasienAsuransiService.addPasienAsuransiModel(pasienAsuransiModel);
+        }
+
+        model.addAttribute("pasien", pasienModel);
+
+        return "add-pasien";
     }
 
     @RequestMapping(path = "/pasien/{nik}/tambah-diagnosis", method = RequestMethod.GET)

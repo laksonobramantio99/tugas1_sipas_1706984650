@@ -16,4 +16,9 @@ public class PasienAsuransiServiceImpl implements PasienAsuransiService {
     public List<PasienAsuransiModel> getAsuransiByPasien(Long id) {
         return pasienAsuransiDb.findByPasienId(id);
     }
+
+    @Override
+    public void addPasienAsuransiModel(PasienAsuransiModel pasienAsuransiModel) {
+        pasienAsuransiDb.save(pasienAsuransiModel);
+    }
 }
