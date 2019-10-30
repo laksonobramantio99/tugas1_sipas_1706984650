@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Pasien</title>
+    <title>View Diagnosis Penyakit Pasien</title>
     <!-- Bootstrap -->
     <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
 </head>
@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                         <td>Jenis Kelamin</td>
-                        <td th:text="${pasien.jenisKelamin}"></td>
+                        <td th:text="${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>
                     </tr>
                     <tr>
                         <td>Tanggal Lahir</td>
@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <td>Emergency Contact</td>
-                        <td th:text="${pasien.emergencyContact.nama} + ' - ' + ${pasien.emergencyContact.noHp}"></td>
+                        <td th:text="${pasien.emergencyContact.nama} + ' - ' + ${pasien.emergencyContact.nik} + ' - ' + ${pasien.emergencyContact.noHp}"></td>
                     </tr>
                     </tbody>
                 </table>
