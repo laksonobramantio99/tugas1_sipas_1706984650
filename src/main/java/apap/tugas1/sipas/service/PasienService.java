@@ -1,6 +1,5 @@
 package apap.tugas1.sipas.service;
 
-import apap.tugas1.sipas.model.EmergencyContactModel;
 import apap.tugas1.sipas.model.PasienModel;
 
 import java.sql.Date;
@@ -14,4 +13,5 @@ public interface PasienService {
     Optional<PasienModel> getPasienByKode(String kode);
     void addPasien(PasienModel pasien);
     PasienModel changePasienData(PasienModel pasienModel);
+    void deletePasien(PasienModel pasien);
 }

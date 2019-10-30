@@ -46,16 +46,21 @@
                             <td th:text="${pasien.tanggalLahir}"></td>
                             <td th:text="${pasien.emergencyContact.noHp}"></td>
                             <td>
-                                <a th:href="@{'/pasien/'+ ${pasien.nik} +'/tambah-diagnosis'}">
-                                    <button type="button" class="btn btn-dark">Tambah Diagnosis</button>
-                                </a>
-                                <a th:href="@{/pasien(nikPasien = ${pasien.nik})}">
-                                    <button type="button" class="btn btn-primary">Lihat</button>
-                                </a>
-                                <a th:href="@{'/pasien/ubah/' + ${pasien.nik}}">
-                                    <button type="button" class="btn btn-dark">Ubah</button>
-                                </a>
-                                <button type="button" class="btn btn-danger">Hapus</button>
+                                <div class="row">
+                                    <a th:href="@{'/pasien/'+ ${pasien.nik} +'/tambah-diagnosis'}">
+                                        <button type="button" class="btn btn-dark mr-1">Tambah Diagnosis</button>
+                                    </a>
+                                    <a th:href="@{/pasien(nikPasien = ${pasien.nik})}">
+                                        <button type="button" class="btn btn-primary mr-1">Lihat</button>
+                                    </a>
+                                    <a th:href="@{'/pasien/ubah/' + ${pasien.nik}}">
+                                        <button type="button" class="btn btn-dark mr-1">Ubah</button>
+                                    </a>
+                                    <form th:action="@{'/pasien/hapus/' + ${pasien.nik}}" method="POST">
+                                        <button type="submit" class="btn btn-danger mr-1">Hapus</button>
+                                    </form>
+                                </div>
+
                             </td>
                         </tr>
                         </tbody>

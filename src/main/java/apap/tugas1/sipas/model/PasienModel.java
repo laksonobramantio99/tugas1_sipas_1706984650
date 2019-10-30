@@ -1,5 +1,9 @@
 package apap.tugas1.sipas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,14 +47,16 @@ public class PasienModel implements Serializable {
     @Column(name = "jenisKelamin", nullable = false)
     private Integer jenisKelamin;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idEmergencyContact", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private EmergencyContactModel emergencyContact;
 
-    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<PasienAsuransiModel> listAsuransi;
 
-    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pasien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<PasienDiagnosisPenyakitModel> listDiagnosisPenyakit;
 
     public Long getId() {

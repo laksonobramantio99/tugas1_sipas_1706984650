@@ -260,4 +260,13 @@ public class PasienController {
         model.addAttribute("pasien", pasien);
         return "ubah-pasien";
     }
+
+    @RequestMapping(value = "/pasien/hapus/{nik}", method = RequestMethod.POST)
+    public String deletePasien(@PathVariable String nik, Model model) {
+        PasienModel pasien = pasienService.getPasienByNik(nik).get();
+        model.addAttribute("pasien", pasien);
+
+        pasienService.deletePasien(pasien);
+        return "delete-pasien";
+    }
 }

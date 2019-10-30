@@ -79,4 +79,9 @@ public class PasienServiceImpl implements PasienService {
             return null;
         }
     }
+
+    @Override
+    public void deletePasien(PasienModel pasien) {
+        pasienDb.delete(pasien);
+    }
 }

@@ -34,4 +34,8 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
         }
     }
 
+    @Override
+    public void deleteEmergencyContact(EmergencyContactModel emergencyContact) {
+        emergencyContactDb.delete(emergencyContact);
+    }
 }
