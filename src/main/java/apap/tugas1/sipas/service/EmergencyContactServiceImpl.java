@@ -18,4 +18,20 @@ public class EmergencyContactServiceImpl implements EmergencyContactService {
     public void addEmergencyContact(EmergencyContactModel emergencyContactModel) {
         emergencyContactDb.save(emergencyContactModel);
     }
+
+    @Override
+    public EmergencyContactModel changeEmergencyContactData(EmergencyContactModel emergencyContactModel) {
+        EmergencyContactModel targetEmergencyContact = emergencyContactDb.findById(emergencyContactModel.getId()).get();
+
+        try {
+            targetEmergencyContact.setNama(emergencyContactModel.getNama());
+            targetEmergencyContact.setNik(emergencyContactModel.getNik());
+            targetEmergencyContact.setNoHp(emergencyContactModel.getNoHp());
+            emergencyContactDb.save(targetEmergencyContact);
+            return targetEmergencyContact;
+        } catch (NullPointerException nullException) {
+            return null;
+        }
+    }
+
 }

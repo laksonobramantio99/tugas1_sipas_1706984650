@@ -52,7 +52,9 @@
                                 <a th:href="@{/pasien(nikPasien = ${pasien.nik})}">
                                     <button type="button" class="btn btn-primary">Lihat</button>
                                 </a>
-                                <button type="button" class="btn btn-dark">Ubah</button>
+                                <a th:href="@{'/pasien/ubah/' + ${pasien.nik}}">
+                                    <button type="button" class="btn btn-dark">Ubah</button>
+                                </a>
                                 <button type="button" class="btn btn-danger">Hapus</button>
                             </td>
                         </tr>

@@ -1,5 +1,6 @@
 package apap.tugas1.sipas.service;
 
+import apap.tugas1.sipas.model.EmergencyContactModel;
 import apap.tugas1.sipas.model.PasienModel;
 import apap.tugas1.sipas.repository.PasienDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,23 @@ public class PasienServiceImpl implements PasienService {
     @Override
     public void addPasien(PasienModel pasien) {
         pasienDb.save(pasien);
+    }
+
+    @Override
+    public PasienModel changePasienData(PasienModel pasienModel) {
+        PasienModel targetPasien = pasienDb.findById(pasienModel.getId()).get();
+
+        try {
+            targetPasien.setNama(pasienModel.getNama());
+            targetPasien.setNik(pasienModel.getNik());
+            targetPasien.setJenisKelamin(pasienModel.getJenisKelamin());
+            targetPasien.setTanggalLahir(pasienModel.getTanggalLahir());
+            targetPasien.setTempatLahir(pasienModel.getTempatLahir());
+            targetPasien.setKode(pasienModel.getKode());
+            pasienDb.save(targetPasien);
+            return targetPasien;
+        } catch (NullPointerException nullException) {
+            return null;
+        }
     }
 }

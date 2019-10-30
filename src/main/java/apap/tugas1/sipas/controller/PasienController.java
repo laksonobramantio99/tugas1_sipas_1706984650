@@ -225,4 +225,39 @@ public class PasienController {
 
         return "cari-pasien-laki-perempuan-result";
     }
+
+    @RequestMapping(path = "/pasien/ubah/{nik}", method = RequestMethod.GET)
+    public String ubahDataPasienForm(
+            @PathVariable(value = "nik") String nik,
+            Model model
+    ) {
+        PasienModel pasien = pasienService.getPasienByNik(nik).get();
+        model.addAttribute("pasien", pasien);
+
+        return "form-ubah-pasien";
+    }
+
+    @RequestMapping(path = "/pasien/ubah/{nik}", method = RequestMethod.POST)
+    public String ubahDataPasienSubmit(
+            @PathVariable(value = "nik") String nik,
+            @ModelAttribute PasienModel pasien,
+            Model model
+    ) {
+        EmergencyContactModel emergencyContact = pasien.getEmergencyContact();
+        emergencyContactService.changeEmergencyContactData(emergencyContact);
+
+        // Assign kode ke pasien model
+        while (true) {
+            String kode = pasienService.generateRandomKode(pasien.getTanggalLahir(), pasien.getJenisKelamin());
+            Optional<PasienModel> hasilCari = pasienService.getPasienByKode(kode);
+            if (hasilCari.isEmpty()) {
+                pasien.setKode(kode);
+                break;
+            }
+        }
+        pasienService.changePasienData(pasien);
+
+        model.addAttribute("pasien", pasien);
+        return "ubah-pasien";
+    }
 }
