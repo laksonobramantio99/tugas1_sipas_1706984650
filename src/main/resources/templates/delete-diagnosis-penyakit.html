@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Pasien</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container-fluid">
+    <h2 th:if="${isDeleted}" th:text="'Data diagnosis penyakit ' + ${namaPenyakit} + ' berhasil dihapus'"></h2>
+    <div th:unless="${isDeleted}">
+        <h2>Gagal</h2>
+        <h3 th:text="'Data diagnosis penyakit ' + ${namaPenyakit} + ' tidah dapat dihapus'"></h3>
+    </div>
+    <a th:href="@{/}">
+        <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+    </a>
+</div>
+
+</body>
+</html>

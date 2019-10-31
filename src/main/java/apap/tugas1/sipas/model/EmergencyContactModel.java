@@ -1,6 +1,8 @@
 package apap.tugas1.sipas.model;
 
-import apap.tugas1.sipas.service.PasienService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,7 +32,9 @@ public class EmergencyContactModel implements Serializable {
     @Column(name = "noHp", nullable = false)
     private String noHp;
 
-    @OneToOne(mappedBy = "emergencyContact")
+    @OneToOne(mappedBy = "emergencyContact", fetch = FetchType.EAGER, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private PasienModel pasien;
 
     public Long getId() {

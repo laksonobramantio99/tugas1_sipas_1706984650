@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Diagnosis Penyakit</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+    <h2>Tambah Data Riwayat Penyakit</h2>
+    <form th:action="@{/diagnosis-penyakit/tambah}" th:object="${diagnosisPenyakit}" method="POST">
+        <div class="form-group">
+            <label>Nama:</label>
+            <input type="text" class="form-control" placeholder="Masukkan nama" name="nama">
+        </div>
+        <div class="form-group">
+            <label>Kode:</label>
+            <input type="text" class="form-control" placeholder="Masukkan kode" name="kode">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

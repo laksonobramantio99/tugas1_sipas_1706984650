@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Pasien</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+    <h2 th:text="'Pasien pada Diagnosis ' + ${diagnosisPenyakit.nama}" class="text-center"></h2>
+    <div class="row pt-2">
+
+        <div class="col-sm-6">
+            <div class="card mb-2">
+                <div class="card-header text-center">
+                    <h5>Laki-laki</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h5 th:text="${lakilaki} + ' orang'"></h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card mb-2">
+                <div class="card-header text-center">
+                    <h5>Perempuan</h5>
+                </div>
+                <div class="card-body text-center">
+                    <h5 th:text="${perempuan} + ' orang'"></h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Diagnosis Penyakit</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header bg-dark text-white">Detail Data Diagnosis Penyakit</div>
+        <div class="card-body">
+            <a th:href="@{/}">
+                <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+            </a>
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Nama Penyakit</td>
+                        <td th:text="${diagnosisPenyakit.nama}"></td>
+                    </tr>
+                    <tr>
+                        <td>Kode Penyakit</td>
+                        <td th:text="${diagnosisPenyakit.kode}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3 mb-3">
+        <div class="card-header bg-dark text-white">Pasien yang terdiagnosi</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr th:each="pasien, iterStat : ${listPasien}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${pasien.pasien.nama} + ' - Kode: '+ ${pasien.pasien.kode}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

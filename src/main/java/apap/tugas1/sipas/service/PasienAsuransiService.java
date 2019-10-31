@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PasienAsuransiService {
     List<PasienAsuransiModel> getAsuransiByPasien(Long id);
+    void addPasienAsuransiModel(PasienAsuransiModel pasienAsuransiModel);
+    List<PasienAsuransiModel> getPasienByAsuransi(Long id);
 }

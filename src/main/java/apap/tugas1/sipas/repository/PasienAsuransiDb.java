@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PasienAsuransiDb extends JpaRepository<PasienAsuransiModel, Long> {
     List<PasienAsuransiModel> findByPasienId(Long id);
+    List<PasienAsuransiModel> findByAsuransiId(Long id);
 }

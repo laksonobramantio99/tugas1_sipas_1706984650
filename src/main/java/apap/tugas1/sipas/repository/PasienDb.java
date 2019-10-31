@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PasienDb extends JpaRepository<PasienModel, Long> {
     Optional<PasienModel> findByNik(String nik);
+    Optional<PasienModel> findByKode(String kode);
 }

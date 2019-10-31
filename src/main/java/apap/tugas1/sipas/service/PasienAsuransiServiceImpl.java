@@ -12,7 +12,18 @@ public class PasienAsuransiServiceImpl implements PasienAsuransiService {
     @Autowired
     private PasienAsuransiDb pasienAsuransiDb;
 
+    @Override
     public List<PasienAsuransiModel> getAsuransiByPasien(Long id) {
         return pasienAsuransiDb.findByPasienId(id);
+    }
+
+    @Override
+    public void addPasienAsuransiModel(PasienAsuransiModel pasienAsuransiModel) {
+        pasienAsuransiDb.save(pasienAsuransiModel);
+    }
+
+    @Override
+    public List<PasienAsuransiModel> getPasienByAsuransi(Long id) {
+        return pasienAsuransiDb.findByAsuransiId(id);
     }
 }

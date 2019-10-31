@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Pasien</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container">
+    <div class="card mb-3">
+        <div class="card-header bg-dark text-white">Cari Pasien Berdasarkan Asuransi dan/atau Diagnosis Penyakit</div>
+        <div class="card-body">
+            <h2>Masukkan Asuransi</h2>
+            <form class="form-inline mt-3" th:action="@{/pasien/cari}"  method="GET">
+                <select class="form-control mr-2" th:name="idAsuransi">
+                    <option value="0">-- Pilih Asuransi --</option>
+                    <option th:each="asr : ${listAsuransi}" th:value="${asr.id}" th:text="${asr.nama}"></option>
+                </select>
+                <select class="form-control mr-2" th:name="idDiagnosis">
+                    <option value="0">-- Pilih Diagnosis Penyakit --</option>
+                    <option th:each="dp : ${listDiagnosisPenyakit}" th:value="${dp.id}" th:text="${dp.nama}"></option>
+                </select>
+                <button type="submit" class="btn btn-primary">Cari Pasien</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-dark text-white">Cari Pasien Berdasarkan Asuransi dan/atau Diagnosis Penyakit</div>
+        <div class="card-body">
+            <h2>Hasil Pencarian</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>NIK</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Kode Pasien</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Telepon Emergency Contact</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pasien, iterStat : ${listPasien}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${pasien.nama}"></td>
+                        <td th:text="${pasien.nik}"></td>
+                        <td th:text="${pasien.jenisKelamin} == 1 ? 'Laki-laki' : 'Perempuan'"></td>
+                        <td th:text="${pasien.kode}"></td>
+                        <td th:text="${pasien.tempatLahir}"></td>
+                        <td th:text="${pasien.tanggalLahir}"></td>
+                        <td th:text="${pasien.emergencyContact.noHp}"></td>
+                        <td>
+                            <div class="row">
+                                <a th:href="@{'/pasien/'+ ${pasien.nik} +'/tambah-diagnosis'}">
+                                    <button type="button" class="btn btn-dark mr-1">Tambah Diagnosis</button>
+                                </a>
+                                <a th:href="@{/pasien(nikPasien = ${pasien.nik})}">
+                                    <button type="button" class="btn btn-primary mr-1">Lihat</button>
+                                </a>
+                                <a th:href="@{'/pasien/ubah/' + ${pasien.nik}}">
+                                    <button type="button" class="btn btn-dark mr-1">Ubah</button>
+                                </a>
+                                <form th:action="@{'/pasien/hapus/' + ${pasien.nik}}" method="POST">
+                                    <button type="submit" class="btn btn-danger mr-1">Hapus</button>
+                                </form>
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
