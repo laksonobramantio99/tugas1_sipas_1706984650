@@ -79,7 +79,7 @@
                     <tr th:each="penyakit, iterStat : ${listPenyakitPasien}">
                         <td th:text="${iterStat.count}"></td>
                         <td th:text="${penyakit.diagnosisPenyakit.nama}"></td>
-                        <td th:text="${penyakit.tanggalDiagnosis}"></td>
+                        <td th:text="${{penyakit.tanggalDiagnosis}}"></td>
                     </tr>
                     </tbody>
                 </table>

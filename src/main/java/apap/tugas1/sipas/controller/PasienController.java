@@ -1,5 +1,6 @@
 package apap.tugas1.sipas.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -179,9 +180,10 @@ public class PasienController {
         }
 
         PasienDiagnosisPenyakitModel pasienDiagnosisPenyakit = new PasienDiagnosisPenyakitModel();
-        java.util.Date utilDate = new Date();
-        java.sql.Date today = new java.sql.Date(utilDate.getTime());
-        pasienDiagnosisPenyakit.setTanggalDiagnosis(today);
+//        java.util.Date utilDate = new Date();
+//        java.sql.Date today = new java.sql.Date(utilDate.getTime());
+        LocalDateTime lt = LocalDateTime.now();
+        pasienDiagnosisPenyakit.setTanggalDiagnosis(lt);
         pasienDiagnosisPenyakit.setPasien(pasien);
         pasienDiagnosisPenyakit.setDiagnosisPenyakit(targetDiagnosisPenyakit);
         // Add to DB
