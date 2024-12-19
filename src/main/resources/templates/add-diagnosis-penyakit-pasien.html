@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Diagnosis Penyakit</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container-fluid">
+    <div th:if="${sudahAda}">
+        <h2>Gagal</h2>
+        <h3 th:text="'Diagnosis penyakit ' + ${targetDiagnosisPenyakit.nama} + ' sudah pernah ditambahkan ke pasien '+ ${pasien.nama}"></h3>
+    </div>
+    <h2 th:unless="${sudahAda}" th:text="'Diagnosis penyakit ' + ${targetDiagnosisPenyakit.nama} + ' berhasil ditambahkan ke pasien '
+        + ${pasien.nama} + ' pada tanggal ' + ${pasienDiagnosisPenyakit.tanggalDiagnosis}">
+    </h2>
+    <a th:href="@{/}">
+        <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+    </a>
+</div>
+
+</body>
+</html>

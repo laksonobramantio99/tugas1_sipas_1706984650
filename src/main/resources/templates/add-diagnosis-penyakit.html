@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Diagnosis Penyakit</title>
+    <!-- Bootstrap -->
+    <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
+</head>
+<body>
+<!-- Navbar -->
+<div th:include="fragment/fragment :: navbar" th:remove="tag"></div>
+
+<div class="container-fluid">
+    <h2>Data diagnosis penyakit berhasil ditambahkan</h2>
+    <a th:href="@{/}" class="pt-2">
+        <button type="button" class="btn btn-sm btn-primary mb-2">Kembali ke Beranda</button>
+    </a>
+</div>
+
+</body>
+</html>

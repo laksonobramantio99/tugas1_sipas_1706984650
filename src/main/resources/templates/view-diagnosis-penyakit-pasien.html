@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>View Pasien</title>
+    <title>View Diagnosis Penyakit Pasien</title>
     <!-- Bootstrap -->
     <object th:include="fragment/fragment :: bootstrap" th:remove="tag"></object>
 </head>
@@ -55,15 +55,31 @@
         </div>
     </div>
 
-    <div class="card mt-3 mb-3">
-        <div class="card-header bg-dark text-white">Asuransi milik Pasien</div>
+    <form class="form-inline mt-3" th:action="@{'/pasien/'+ ${pasien.nik} +'/tambah-diagnosis'}" th:object="${diagnosisPenyakit}" method="POST">
+        <select class="form-control mr-2" th:field="*{id}">
+            <option value="">-- Pilih Diagnosis Penyakit --</option>
+            <option th:each="dp : ${listDiagnosisPenyakit}" th:value="${dp.id}" th:text="${dp.nama}"></option>
+        </select>
+        <button type="submit" class="btn btn-primary">Tambah Diagnosis Penyakit Pasien</button>
+    </form>
+
+    <div class="card mt-1 mb-3">
+        <div class="card-header bg-dark text-white">Diagnosis Penyakit milik Pasien</div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Tanggal terdiagnosis</th>
+                    </tr>
+                    </thead>
                     <tbody>
-                    <tr th:each="asuransi, iterStat : ${listAsuransi}">
+                    <tr th:each="penyakit, iterStat : ${listPenyakitPasien}">
                         <td th:text="${iterStat.count}"></td>
-                        <td th:text="${asuransi.asuransi.nama}"></td>
+                        <td th:text="${penyakit.diagnosisPenyakit.nama}"></td>
+                        <td th:text="${{penyakit.tanggalDiagnosis}}"></td>
                     </tr>
                     </tbody>
                 </table>

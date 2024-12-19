@@ -1,12 +1,15 @@
 package apap.tugas1.sipas.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pasienDiagnosisPenyakit")
@@ -28,7 +31,8 @@ public class PasienDiagnosisPenyakitModel implements Serializable {
 
     @NotNull
     @Column(name = "tanggalDiagnosis", nullable = false)
-    private Date tanggalDiagnosis;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime tanggalDiagnosis;
 
     public Long getId() {
         return id;
@@ -54,11 +58,11 @@ public class PasienDiagnosisPenyakitModel implements Serializable {
         this.diagnosisPenyakit = diagnosisPenyakit;
     }
 
-    public Date getTanggalDiagnosis() {
+    public LocalDateTime getTanggalDiagnosis() {
         return tanggalDiagnosis;
     }
 
-    public void setTanggalDiagnosis(Date tanggalDiagnosis) {
+    public void setTanggalDiagnosis(LocalDateTime tanggalDiagnosis) {
         this.tanggalDiagnosis = tanggalDiagnosis;
     }
 }
